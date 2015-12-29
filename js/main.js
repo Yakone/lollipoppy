@@ -65,19 +65,19 @@ Main.prototype = {
 	    this.player.body.velocity.x = 0;
  
 	    if (this.cursors.up.isDown) {
-			this.player.body.velocity.y -= 70;
+			this.player.body.velocity.y -= 150;
 	    }
 
 	    else if (this.cursors.down.isDown) {
-			this.player.body.velocity.y += 70;
+			this.player.body.velocity.y += 150;
 	    }
 
 	    if (this.cursors.left.isDown) {
-			this.player.body.velocity.x -= 70;
+			this.player.body.velocity.x -= 200;
 	    }
 
 	    else if (this.cursors.right.isDown) {
-			this.player.body.velocity.x += 70;
+			this.player.body.velocity.x += 200;
 	    }
 
 	    this.game.physics.arcade.overlap(this.player, this.candy, this.collect, null, this);
@@ -87,7 +87,7 @@ Main.prototype = {
 		this.game.state.start('GameOver');
 	},
 
-	/* 	find objects in a Tiled layer that containt a property called "type" equal to a certain value
+	/* 	find objects in a Tiled layer that contains a property called "type" equal to a certain value
 		https://gamedevacademy.org/html5-phaser-tutorial-top-down-games-with-tiled/
 	*/
 	findObjectsByType: function(type, map, layer) {
