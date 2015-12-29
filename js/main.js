@@ -14,6 +14,9 @@ Main.prototype = {
 		this.game.physics.arcade.enable(this.player);
 		this.game.camera.follow(this.player);
 
+		this.player.animations.add('walk');
+		this.player.animations.play('walk', 10, true);
+
 		this.cursors = this.game.input.keyboard.createCursorKeys();
 
 		this.backgroundLayer = this.map.createLayer('backgroundLayer');
