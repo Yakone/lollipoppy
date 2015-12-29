@@ -10,6 +10,7 @@ Main.prototype = {
 		this.map.addTilesetImage('sheet', 'tiles');
 
 		this.player = this.game.add.sprite(70, 320, 'player');
+		this.player.scale.setTo(1.5, 1.5);
 		this.game.physics.arcade.enable(this.player);
 		this.game.camera.follow(this.player);
 
