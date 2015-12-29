@@ -9,6 +9,12 @@ Main.prototype = {
 		this.map = this.game.add.tilemap('tilemap');
 		this.map.addTilesetImage('sheet', 'tiles');
 
+		this.player = this.game.add.sprite(70, 320, 'player');
+		this.game.physics.arcade.enable(this.player);
+		this.game.camera.follow(this.player);
+
+		this.cursors = this.game.input.keyboard.createCursorKeys();
+
 		this.backgroundLayer = this.map.createLayer('backgroundLayer');
 
 		this.createCandy();
@@ -18,15 +24,38 @@ Main.prototype = {
 		this.candy = this.game.add.group();
 		this.candy.enableBody = true;
 
-		var candy;
 		result = this.findObjectsByType('candy', this.map, 'objectLayer');
 		result.forEach(function(element) {
 			this.createFromTiledObject(element, this.candy);
 		}, this);
 	},
 
-	update: function() {
+	collect: function(player, collectable) {
+		collectable.destroy();
+	},
 
+	update: function() {
+		// player movement
+	    this.player.body.velocity.y = 0;
+	    this.player.body.velocity.x = 0;
+ 
+	    if (this.cursors.up.isDown) {
+			this.player.body.velocity.y -= 70;
+	    }
+
+	    else if (this.cursors.down.isDown) {
+			this.player.body.velocity.y += 70;
+	    }
+
+	    if (this.cursors.left.isDown) {
+			this.player.body.velocity.x -= 70;
+	    }
+
+	    else if (this.cursors.right.isDown) {
+			this.player.body.velocity.x += 70;
+	    }
+
+	    this.game.physics.arcade.overlap(this.player, this.candy, this.collect, null, this);
 	},
 
 	gameOver: function() {
