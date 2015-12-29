@@ -11,8 +11,11 @@ Main.prototype = {
 
 		this.player = this.game.add.sprite(70, 300, 'player');
 		this.player.scale.setTo(1.5, 1.5);
+
 		this.game.physics.arcade.enable(this.player);
 		this.game.camera.follow(this.player);
+
+		this.player.body.gravity.y = 500;
 
 		this.player.animations.add('idle', [0]);
 		this.player.animations.add('walk', [0, 1, 2]);
@@ -20,6 +23,7 @@ Main.prototype = {
 		this.cursors = this.game.input.keyboard.createCursorKeys();
 
 		this.backgroundLayer = this.map.createLayer('backgroundLayer');
+		this.map.setCollisionBetween(1, 1000, true, 'backgroundLayer');
 
 		this.createCandy();
 
@@ -27,8 +31,11 @@ Main.prototype = {
 	},
 
 	bindKeys: function() {
+		var upKey = this.game.input.keyboard.addKey(Phaser.Keyboard.UP);
 		var leftKey = this.game.input.keyboard.addKey(Phaser.Keyboard.LEFT);
 		var rightKey = this.game.input.keyboard.addKey(Phaser.Keyboard.RIGHT);
+
+		upKey.onDown.add(this.jump, this);
 
 		leftKey.onDown.add(this.changeToWalking, this);
 		leftKey.onUp.add(this.changeToIdle, this);
@@ -51,6 +58,10 @@ Main.prototype = {
 		collectable.destroy();
 	},
 
+	jump: function() {
+		this.player.body.velocity.y = -350;
+	},
+
 	changeToIdle: function() {
 		this.player.animations.play('idle');
 	},
@@ -60,12 +71,13 @@ Main.prototype = {
 	},
 
 	update: function() {
+		this.game.physics.arcade.collide(this.player, this.backgroundLayer);
 		// player movement
 	    this.player.body.velocity.y = 0;
 	    this.player.body.velocity.x = 0;
  
 	    if (this.cursors.up.isDown) {
-			this.player.body.velocity.y -= 150;
+			//this.player.body.velocity.y -= 150;
 	    }
 
 	    else if (this.cursors.down.isDown) {
@@ -112,5 +124,7 @@ Main.prototype = {
 		Object.keys(element.properties).forEach(function(key) {
 			sprite[key] = element.properties[key];
 		});
+
+		return sprite;
 	},
 };
