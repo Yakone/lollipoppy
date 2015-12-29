@@ -9,19 +9,32 @@ Main.prototype = {
 		this.map = this.game.add.tilemap('tilemap');
 		this.map.addTilesetImage('sheet', 'tiles');
 
-		this.player = this.game.add.sprite(70, 320, 'player');
+		this.player = this.game.add.sprite(70, 300, 'player');
 		this.player.scale.setTo(1.5, 1.5);
 		this.game.physics.arcade.enable(this.player);
 		this.game.camera.follow(this.player);
 
-		this.player.animations.add('walk');
-		this.player.animations.play('walk', 10, true);
+		this.player.animations.add('idle', [0]);
+		this.player.animations.add('walk', [0, 1, 2]);
 
 		this.cursors = this.game.input.keyboard.createCursorKeys();
 
 		this.backgroundLayer = this.map.createLayer('backgroundLayer');
 
 		this.createCandy();
+
+		this.bindKeys();
+	},
+
+	bindKeys: function() {
+		var leftKey = this.game.input.keyboard.addKey(Phaser.Keyboard.LEFT);
+		var rightKey = this.game.input.keyboard.addKey(Phaser.Keyboard.RIGHT);
+
+		leftKey.onDown.add(this.changeToWalking, this);
+		leftKey.onUp.add(this.changeToIdle, this);
+
+		rightKey.onDown.add(this.changeToWalking, this);
+		rightKey.onUp.add(this.changeToIdle, this);
 	},
 
 	createCandy: function() {
@@ -36,6 +49,14 @@ Main.prototype = {
 
 	collect: function(player, collectable) {
 		collectable.destroy();
+	},
+
+	changeToIdle: function() {
+		this.player.animations.play('idle');
+	},
+
+	changeToWalking: function() {
+		this.player.animations.play('walk', 10, true);
 	},
 
 	update: function() {
