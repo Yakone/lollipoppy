@@ -21,9 +21,10 @@ Main.prototype = {
 		this.player.animations.add('walk', [0, 1, 2]);
 
 		this.cursors = this.game.input.keyboard.createCursorKeys();
-
+		
 		this.backgroundLayer = this.map.createLayer('backgroundLayer');
-		this.map.setCollisionBetween(1, 1000, true, 'backgroundLayer');
+		this.blockedLayer = this.map.createLayer('blockedLayer');
+		this.map.setCollisionBetween(1, 1000, true, 'blockedLayer');
 
 		this.createCandy();
 
@@ -71,7 +72,7 @@ Main.prototype = {
 	},
 
 	update: function() {
-		this.game.physics.arcade.collide(this.player, this.backgroundLayer);
+		this.game.physics.arcade.collide(this.player, this.blockedLayer);
 		// player movement
 	    this.player.body.velocity.y = 0;
 	    this.player.body.velocity.x = 0;
