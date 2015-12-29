@@ -37,7 +37,8 @@
                  "name":"",
                  "properties":
                     {
-                     "sprite":"candyGreen"
+                     "sprite":"candyGreen",
+                     "type":"candy"
                     },
                  "rotation":0,
                  "type":"candy",
@@ -53,7 +54,8 @@
                  "name":"",
                  "properties":
                     {
-                     "sprite":"cherry"
+                     "sprite":"cherry",
+                     "type":"candy"
                     },
                  "rotation":0,
                  "type":"candy",
@@ -69,7 +71,8 @@
                  "name":"",
                  "properties":
                     {
-                     "sprite":"candyBlue"
+                     "sprite":"candyBlue",
+                     "type":"candy"
                     },
                  "rotation":0,
                  "type":"candy",
