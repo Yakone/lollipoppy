@@ -29,6 +29,7 @@ Main.prototype = {
 		this.map.setCollisionBetween(1, 1000, true, 'blockedLayer');
 
 		this.createCandy();
+		this.addObstacles();
 
 		this.bindKeys();
 	},
@@ -54,6 +55,20 @@ Main.prototype = {
 		result = this.findObjectsByType('candy', this.map, 'objectLayer');
 		result.forEach(function(element) {
 			this.createFromTiledObject(element, this.candy);
+		}, this);
+	},
+
+	addObstacles: function() {
+		this.createIcecream();
+	},
+
+	createIcecream: function() {
+		this.icecream = this.game.add.group();
+
+		result = this.findObjectsByType('icecream', this.map, 'objectLayer');
+
+		result.forEach(function(element) {
+			this.createFromTiledObject(element, this.icecream);
 		}, this);
 	},
 
