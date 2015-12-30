@@ -8,6 +8,8 @@ Main.prototype = {
 		this.game.stage.backgroundColor = '#aeecf3';
 		this.game.world.setBounds(0, 0, 7000, 700);
 
+		this.game.physics.arcade.TILE_BIAS = 40;
+
 		this.map = this.game.add.tilemap('tilemap');
 		this.map.addTilesetImage('sheet', 'tiles');
 
