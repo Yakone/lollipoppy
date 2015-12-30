@@ -6,6 +6,8 @@ Main.prototype = {
 
 	create: function() {
 		this.game.stage.backgroundColor = '#aeecf3';
+		this.game.world.setBounds(0, 0, 1920, 1920);
+
 		this.map = this.game.add.tilemap('tilemap');
 		this.map.addTilesetImage('sheet', 'tiles');
 
@@ -125,5 +127,10 @@ Main.prototype = {
 		});
 
 		return sprite;
+	},
+
+	render: function() {
+    	this.game.debug.cameraInfo(this.game.camera, 32, 32);
+    	this.game.debug.spriteCoords(this.player, 32, 500);
 	},
 };
