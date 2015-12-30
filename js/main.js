@@ -64,6 +64,7 @@ Main.prototype = {
 
 	createIcecream: function() {
 		this.icecream = this.game.add.group();
+		this.icecream.enableBody = true;
 
 		result = this.findObjectsByType('icecream', this.map, 'objectLayer');
 
@@ -74,6 +75,10 @@ Main.prototype = {
 
 	collect: function(player, collectable) {
 		collectable.destroy();
+	},
+
+	slow: function() {
+		console.log('slowed');
 	},
 
 	jump: function() {
@@ -109,6 +114,7 @@ Main.prototype = {
 	    }
 
 	    this.game.physics.arcade.overlap(this.player, this.candy, this.collect, null, this);
+	    this.game.physics.arcade.overlap(this.player, this.icecream, this.slow, null, this);
 	},
 
 	gameOver: function() {
