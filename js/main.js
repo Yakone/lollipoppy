@@ -15,13 +15,13 @@ Main.prototype = {
 		this.game.physics.arcade.enable(this.player);
 		this.game.camera.follow(this.player);
 
-		this.player.body.gravity.y = 500;
+		this.player.body.gravity.y = 2500;
 
 		this.player.animations.add('idle', [0]);
 		this.player.animations.add('walk', [0, 1, 2]);
 
 		this.cursors = this.game.input.keyboard.createCursorKeys();
-		
+
 		this.backgroundLayer = this.map.createLayer('backgroundLayer');
 		this.blockedLayer = this.map.createLayer('blockedLayer');
 		this.map.setCollisionBetween(1, 1000, true, 'blockedLayer');
@@ -60,7 +60,7 @@ Main.prototype = {
 	},
 
 	jump: function() {
-		this.player.body.velocity.y = -350;
+		this.player.body.velocity.y = -550;
 	},
 
 	changeToIdle: function() {
@@ -73,8 +73,6 @@ Main.prototype = {
 
 	update: function() {
 		this.game.physics.arcade.collide(this.player, this.blockedLayer);
-		// player movement
-	    this.player.body.velocity.y = 0;
 	    this.player.body.velocity.x = 0;
  
 	    if (this.cursors.up.isDown) {
@@ -86,11 +84,11 @@ Main.prototype = {
 	    }
 
 	    if (this.cursors.left.isDown) {
-			this.player.body.velocity.x -= 200;
+			this.player.body.velocity.x -= 500;
 	    }
 
 	    else if (this.cursors.right.isDown) {
-			this.player.body.velocity.x += 200;
+			this.player.body.velocity.x += 500;
 	    }
 
 	    this.game.physics.arcade.overlap(this.player, this.candy, this.collect, null, this);
