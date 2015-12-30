@@ -6,7 +6,7 @@ Main.prototype = {
 
 	create: function() {
 		this.game.stage.backgroundColor = '#aeecf3';
-		this.game.world.setBounds(0, 0, 1920, 1920);
+		this.game.world.setBounds(0, 0, 7000, 700);
 
 		this.map = this.game.add.tilemap('tilemap');
 		this.map.addTilesetImage('sheet', 'tiles');
