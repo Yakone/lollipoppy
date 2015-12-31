@@ -24,6 +24,8 @@ Main.prototype = {
 		this.player.animations.add('idle', [0]);
 		this.player.animations.add('walk', [0, 1, 2]);
 
+		this.score = 0;
+
 		this.cursors = this.game.input.keyboard.createCursorKeys();
 
 		this.backgroundLayer = this.map.createLayer('backgroundLayer');
@@ -34,6 +36,7 @@ Main.prototype = {
 		this.addObstacles();
 
 		this.bindKeys();
+		this.addScore();
 	},
 
 	bindKeys: function() {
@@ -48,6 +51,13 @@ Main.prototype = {
 
 		rightKey.onDown.add(this.changeToWalking, this);
 		rightKey.onUp.add(this.changeToIdle, this);
+	},
+
+	addScore: function() {
+		var style = {font: "65px Arial", fill: "#fff", align: "center"};
+		this.scoreText = this.game.add.text(this.game.camera.width - 200, 50, "Score: 0", style);
+		this.scoreText.fixedToCamera = true;
+		this.scoreText.anchor.set(0.5);
 	},
 
 	createCandy: function() {
@@ -76,7 +86,9 @@ Main.prototype = {
 	},
 
 	collect: function(player, collectable) {
+		this.score += 1;
 		collectable.destroy();
+		this.scoreText.setText('Score: ' + this.score);
 	},
 
 	slow: function() {
