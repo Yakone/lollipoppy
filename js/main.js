@@ -54,8 +54,9 @@ Main.prototype = {
 	},
 
 	addScore: function() {
-		var style = {font: "65px Arial", fill: "#fff", align: "center"};
-		this.scoreText = this.game.add.text(this.game.camera.width - 200, 50, "Score: 0", style);
+		var style = {font: "65px Cheri Liney", fill: "#fff", align: "center"};
+		// spacing prevents text from being cut off (NEED FIX)
+		this.scoreText = this.game.add.text(this.game.camera.width - 300, 50, " Score: 0 ", style);
 		this.scoreText.fixedToCamera = true;
 		this.scoreText.anchor.set(0.5);
 	},
@@ -88,7 +89,8 @@ Main.prototype = {
 	collect: function(player, collectable) {
 		this.score += 1;
 		collectable.destroy();
-		this.scoreText.setText('Score: ' + this.score);
+		// spacing prevents text from being cut off (NEED FIX)
+		this.scoreText.setText(' Score: ' + this.score + ' ');
 	},
 
 	slow: function() {
