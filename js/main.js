@@ -6,7 +6,8 @@ Main.prototype = {
 
 	create: function() {
 		this.game.stage.backgroundColor = '#aeecf3';
-		this.game.world.setBounds(0, 0, 7000, 700);
+		this.realWorldHeight = 700;
+		this.game.world.setBounds(0, 0, 7000, this.realWorldHeight + 100); // real height + 100 for player sprite
 
 		this.game.physics.arcade.TILE_BIAS = 40;
 
@@ -18,6 +19,12 @@ Main.prototype = {
 
 		this.game.physics.arcade.enable(this.player);
 		this.game.camera.follow(this.player);
+
+		// Need to figure out how to let the player drop off
+		// the screen instead of just sitting at the bottom
+		// (if possible?); otherwise just add a check for
+		// the x-axis bounds when moving left/right
+		this.player.body.collideWorldBounds = true;
 
 		this.player.body.gravity.y = 2500;
 
@@ -112,6 +119,10 @@ Main.prototype = {
 	update: function() {
 		this.game.physics.arcade.collide(this.player, this.blockedLayer);
 	    this.player.body.velocity.x = 0;
+
+	    if (this.player.y >= this.realWorldHeight) {
+    		this.gameOver();
+		}
  
 	    if (this.cursors.up.isDown) {
 			//this.player.body.velocity.y -= 150;
