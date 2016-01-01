@@ -26,7 +26,7 @@ Main.prototype = {
 		// the x-axis bounds when moving left/right
 		this.player.body.collideWorldBounds = true;
 
-		this.player.body.gravity.y = 2500;
+		this.player.body.gravity.y = 2600;
 
 		this.player.animations.add('idle', [0]);
 		this.player.animations.add('walk', [0, 1, 2]);
@@ -47,11 +47,8 @@ Main.prototype = {
 	},
 
 	bindKeys: function() {
-		var upKey = this.game.input.keyboard.addKey(Phaser.Keyboard.UP);
 		var leftKey = this.game.input.keyboard.addKey(Phaser.Keyboard.LEFT);
 		var rightKey = this.game.input.keyboard.addKey(Phaser.Keyboard.RIGHT);
-
-		upKey.onDown.add(this.jump, this);
 
 		leftKey.onDown.add(this.changeToWalking, this);
 		leftKey.onUp.add(this.changeToIdle, this);
@@ -104,10 +101,6 @@ Main.prototype = {
 		console.log('slowed');
 	},
 
-	jump: function() {
-		this.player.body.velocity.y = -550;
-	},
-
 	changeToIdle: function() {
 		this.player.animations.play('idle');
 	},
@@ -119,13 +112,10 @@ Main.prototype = {
 	update: function() {
 		this.game.physics.arcade.collide(this.player, this.blockedLayer);
 	    this.player.body.velocity.x = 0;
-
-	    if (this.player.y >= this.realWorldHeight) {
-    		this.gameOver();
-		}
- 
-	    if (this.cursors.up.isDown) {
-			//this.player.body.velocity.y -= 150;
+ 		
+ 		// Only jump if the player is on the ground
+	    if (this.cursors.up.isDown && this.player.body.blocked.down) {
+	  		this.player.body.velocity.y = -900;
 	    }
 
 	    else if (this.cursors.down.isDown) {
@@ -142,6 +132,10 @@ Main.prototype = {
 
 	    this.game.physics.arcade.overlap(this.player, this.candy, this.collect, null, this);
 	    this.game.physics.arcade.overlap(this.player, this.icecream, this.slow, null, this);
+
+	    if (this.player.y >= this.realWorldHeight) {
+    		this.gameOver();
+		}
 	},
 
 	gameOver: function() {
