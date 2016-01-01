@@ -32,6 +32,7 @@ Main.prototype = {
 		this.player.animations.add('walk', [0, 1, 2]);
 
 		this.score = 0;
+		this.life = 100;
 
 		this.cursors = this.game.input.keyboard.createCursorKeys();
 
@@ -44,6 +45,8 @@ Main.prototype = {
 
 		this.bindKeys();
 		this.addScore();
+
+		this.lifeTickEvent = this.game.time.events.loop(Phaser.Timer.SECOND, this.lifeTick, this);
 	},
 
 	bindKeys: function() {
@@ -63,6 +66,18 @@ Main.prototype = {
 		this.scoreText = this.game.add.text(this.game.camera.width - 300, 50, " Score: 0 ", style);
 		this.scoreText.fixedToCamera = true;
 		this.scoreText.anchor.set(0.5);
+
+		this.lifeText = this.game.add.text(this.game.camera.width - 300, 80, " Life: 100 ", style);
+		this.lifeText.fixedToCamera = true;
+	},
+
+	updateLife: function() {
+		this.lifeText.setText(' Life: ' + this.life + ' ');
+	},
+
+	lifeTick: function() {
+		this.life--;
+		this.updateLife();
 	},
 
 	createCandy: function() {
@@ -133,7 +148,7 @@ Main.prototype = {
 	    this.game.physics.arcade.overlap(this.player, this.candy, this.collect, null, this);
 	    this.game.physics.arcade.overlap(this.player, this.icecream, this.slow, null, this);
 
-	    if (this.player.y >= this.realWorldHeight) {
+	    if (this.player.y >= this.realWorldHeight || this.life === 0) {
     		this.gameOver();
 		}
 	},
