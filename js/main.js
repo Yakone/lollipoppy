@@ -13,8 +13,16 @@ Main.prototype = {
 
 		this.map = this.game.add.tilemap('tilemap');
 		this.map.addTilesetImage('sheet', 'tiles');
+		this.backgroundLayer = this.map.createLayer('backgroundLayer');
+		this.blockedLayer = this.map.createLayer('blockedLayer');
+		this.map.setCollisionBetween(1, 1000, true, 'blockedLayer');
+
+		this.createCandy();
+		this.addObstacles();
+		this.addDoor();
 
 		this.player = this.game.add.sprite(70, 300, 'player');
+		this.player.bringToTop();
 		this.player.scale.setTo(1.5, 1.5);
 
 		this.game.physics.arcade.enable(this.player);
@@ -35,14 +43,6 @@ Main.prototype = {
 		this.life = 100;
 
 		this.cursors = this.game.input.keyboard.createCursorKeys();
-
-		this.backgroundLayer = this.map.createLayer('backgroundLayer');
-		this.blockedLayer = this.map.createLayer('blockedLayer');
-		this.map.setCollisionBetween(1, 1000, true, 'blockedLayer');
-
-		this.createCandy();
-		this.addObstacles();
-		this.addDoor();
 
 		this.bindKeys();
 		this.addScore();
