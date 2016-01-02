@@ -17,6 +17,8 @@ Preload.prototype = {
 		this.game.load.image('creamVanilla', 'assets/art-candy/Tiles/creamVanilla.png');
 		this.game.load.image('creamChoco', 'assets/art-candy/Tiles/creamChoco.png');
 		this.game.load.image('creamMocca', 'assets/art-candy/Tiles/creamMocca.png');
+		this.game.load.image('lollipopGreen', 'assets/art-candy/Tiles/lollipopGreen.png');
+		this.game.load.image('gummyWormRedMid', 'assets/art-candy/Tiles/gummyWormRedMid.png');
 	},
 
 	create: function() {
