@@ -114,7 +114,10 @@ Main.prototype = {
 		result = this.findObjectsByType('lollipop', this.map, 'objectLayer');
 
 		result.forEach(function(element) {
-			this.createFromTiledObject(element, this.lollipops);
+			var lollipop = this.createFromTiledObject(element, this.lollipops);
+			lollipop.originalX = lollipop.x;
+			lollipop.originalY = lollipop.y;
+			lollipop.anchor.setTo(0.5, 0.5);
 		}, this);
 	},
 
@@ -172,6 +175,12 @@ Main.prototype = {
 	    else if (this.cursors.right.isDown) {
 			this.player.body.velocity.x += 500;
 	    }
+	    
+	    this.lollipops.forEach(function(lollipop) {
+	    	lollipop.angle += 2;
+	    	lollipop.x = lollipop.originalX + 35;
+	    	lollipop.y = lollipop.originalY + 35;
+	    });
 
 	    this.game.physics.arcade.overlap(this.player, this.candy, this.collect, null, this);
 	    this.game.physics.arcade.overlap(this.player, this.icecream, this.slow, null, this);
