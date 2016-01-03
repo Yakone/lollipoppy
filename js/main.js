@@ -143,8 +143,8 @@ Main.prototype = {
 		console.log('slowed');
 	},
 
-	suckIn: function() {
-
+	suckIn: function(player, lollipop) {
+		this.game.physics.arcade.accelerateToObject(this.player, {x: lollipop.originalX, y: lollipop.originalY}, 2000, 3000);
 	},
 
 	changeToIdle: function() {
