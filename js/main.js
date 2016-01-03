@@ -184,7 +184,7 @@ Main.prototype = {
 	},
 
 	completeLevel: function() {
-
+		this.game.state.start('Win');
 	},
 
 	gameOver: function() {

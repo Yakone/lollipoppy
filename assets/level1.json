@@ -426,7 +426,7 @@
                  "name":"",
                  "properties":
                     {
-                     "sprite":"gummyWormRedMid",
+                     "sprite":"gummyWormRedDoor",
                      "type":"door"
                     },
                  "rotation":0,
