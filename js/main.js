@@ -41,6 +41,7 @@ Main.prototype = {
 
 		this.score = 0;
 		this.life = 100;
+		this.movementModifier = 1.0;
 
 		this.cursors = this.game.input.keyboard.createCursorKeys();
 
@@ -140,7 +141,8 @@ Main.prototype = {
 	},
 
 	slow: function() {
-		console.log('slowed');
+		this.movementModifier = 0.01;
+		this.game.time.events.add(Phaser.Timer.SECOND * 2, function() { this.movementModifier = 1.0; }, this);
 	},
 
 	suckIn: function(player, lollipop) {
@@ -161,19 +163,19 @@ Main.prototype = {
  		
  		// Only jump if the player is on the ground
 	    if (this.cursors.up.isDown && this.player.body.blocked.down) {
-	  		this.player.body.velocity.y = -900;
+	  		this.player.body.velocity.y = -900 * this.movementModifier;
 	    }
 
 	    else if (this.cursors.down.isDown) {
-			this.player.body.velocity.y += 150;
+			this.player.body.velocity.y += 150 * this.movementModifier;
 	    }
 
 	    if (this.cursors.left.isDown) {
-			this.player.body.velocity.x -= 500;
+			this.player.body.velocity.x -= 500 * this.movementModifier;
 	    }
 
 	    else if (this.cursors.right.isDown) {
-			this.player.body.velocity.x += 500;
+			this.player.body.velocity.x += 500 * this.movementModifier;
 	    }
 	    
 	    this.lollipops.forEach(function(lollipop) {
