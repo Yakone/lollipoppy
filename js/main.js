@@ -95,6 +95,7 @@ Main.prototype = {
 	addObstacles: function() {
 		this.createIcecream();
 		this.createLollipops();
+		this.createLollipopSticks();
 	},
 
 	createIcecream: function() {
@@ -119,6 +120,17 @@ Main.prototype = {
 			lollipop.originalX = lollipop.x;
 			lollipop.originalY = lollipop.y;
 			lollipop.anchor.setTo(0.5, 0.5);
+		}, this);
+	},
+
+	createLollipopSticks: function() {
+		this.lollipopSticks = this.game.add.group();
+		this.lollipopSticks.enableBody = true;
+
+		result = this.findObjectsByType('lollipopStick', this.map, 'objectLayer');
+
+		result.forEach(function(element) {
+			this.createFromTiledObject(element, this.lollipopSticks);
 		}, this);
 	},
 
@@ -147,6 +159,23 @@ Main.prototype = {
 
 	suckIn: function(player, lollipop) {
 		this.game.physics.arcade.accelerateToObject(this.player, {x: lollipop.originalX, y: lollipop.originalY}, 2000, 3000);
+	},
+
+	checkLollipopStickDamage: function() {
+		// This is true if the player collides from the top (i.e. jumping down onto it)
+		if (!this.player.body.touching.any) {
+			this.doDamage(20);
+		}
+	},
+
+	doDamage: function(damage) {
+		var resultingLife = this.life - damage;
+
+		if (resultingLife >= 0) {
+			this.life = resultingLife;
+		} else {
+			this.life = 0;
+		}
 	},
 
 	changeToIdle: function() {
@@ -187,6 +216,7 @@ Main.prototype = {
 	    this.game.physics.arcade.overlap(this.player, this.candy, this.collect, null, this);
 	    this.game.physics.arcade.overlap(this.player, this.icecream, this.slow, null, this);
 	    this.game.physics.arcade.overlap(this.player, this.lollipops, this.suckIn, null, this);
+	    this.game.physics.arcade.collide(this.player, this.lollipopSticks, this.checkLollipopStickDamage, null, this);
 	    this.game.physics.arcade.overlap(this.player, this.door, this.completeLevel, null, this);
 
 	    if (this.player.y >= this.realWorldHeight || this.life === 0) {
