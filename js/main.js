@@ -38,6 +38,11 @@ Main.prototype = {
 
 		this.player.animations.add('idle', [0]);
 		this.player.animations.add('walk', [0, 1, 2]);
+		this.player.animations.add('attack', [3]);
+		this.player.animations.add('jump', [4]);
+		this.player.animations.add('dead', [5]);
+
+		//this.player.events.onAnimationComplete.add(this.changeToIdle, this);
 
 		this.score = 0;
 		this.life = 100;
@@ -54,12 +59,16 @@ Main.prototype = {
 	bindKeys: function() {
 		var leftKey = this.game.input.keyboard.addKey(Phaser.Keyboard.LEFT);
 		var rightKey = this.game.input.keyboard.addKey(Phaser.Keyboard.RIGHT);
+		var upKey = this.game.input.keyboard.addKey(Phaser.Keyboard.UP);
 
 		leftKey.onDown.add(this.changeToWalking, this);
 		leftKey.onUp.add(this.changeToIdle, this);
 
 		rightKey.onDown.add(this.changeToWalking, this);
 		rightKey.onUp.add(this.changeToIdle, this);
+
+		upKey.onDown.add(this.changeToJumping, this);
+		upKey.onUp.add(this.changeToIdle, this);
 	},
 
 	addScore: function() {
@@ -186,6 +195,10 @@ Main.prototype = {
 		this.player.animations.play('walk', 10, true);
 	},
 
+	changeToJumping: function() {
+		this.player.animations.play('jump', 10, true);
+	},
+
 	update: function() {
 		this.game.physics.arcade.collide(this.player, this.blockedLayer);
 	    this.player.body.velocity.x = 0;
@@ -193,6 +206,7 @@ Main.prototype = {
  		// Only jump if the player is on the ground
 	    if (this.cursors.up.isDown && this.player.body.blocked.down) {
 	  		this.player.body.velocity.y = -900 * this.movementModifier;
+	  		//this.player.animations.play('jump', 10, false);
 	    }
 
 	    else if (this.cursors.down.isDown) {
