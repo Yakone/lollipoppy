@@ -153,7 +153,7 @@ Main.prototype = {
 	},
 
 	slow: function() {
-		this.movementModifier = 0.01;
+		this.movementModifier = 0.25;
 		this.game.time.events.add(Phaser.Timer.SECOND * 2, function() { this.movementModifier = 1.0; }, this);
 	},
 
