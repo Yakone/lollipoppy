@@ -60,6 +60,7 @@ Main.prototype = {
 		var leftKey = this.game.input.keyboard.addKey(Phaser.Keyboard.LEFT);
 		var rightKey = this.game.input.keyboard.addKey(Phaser.Keyboard.RIGHT);
 		var upKey = this.game.input.keyboard.addKey(Phaser.Keyboard.UP);
+		var spacebar = this.game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
 
 		leftKey.onDown.add(this.changeToWalking, this);
 		leftKey.onUp.add(this.changeToIdle, this);
@@ -69,6 +70,9 @@ Main.prototype = {
 
 		upKey.onDown.add(this.changeToJumping, this);
 		upKey.onUp.add(this.changeToIdle, this);
+
+		spacebar.onDown.add(this.attack, this);
+		spacebar.onUp.add(this.changeToIdle, this);
 	},
 
 	addScore: function() {
@@ -87,7 +91,7 @@ Main.prototype = {
 	},
 
 	lifeTick: function() {
-		this.life--;
+		this.life = this.life - 2;
 		this.updateLife();
 	},
 
@@ -185,6 +189,10 @@ Main.prototype = {
 		} else {
 			this.life = 0;
 		}
+	},
+
+	attack: function() {
+		this.player.animations.play('attack');
 	},
 
 	changeToIdle: function() {
