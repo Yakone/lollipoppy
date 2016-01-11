@@ -44,9 +44,18 @@ Main.prototype = {
 
 		//this.player.events.onAnimationComplete.add(this.changeToIdle, this);
 
+		this.normalBackgroundMusic = this.game.add.audio('oompa-loompa');
+		this.normalBackgroundMusic.loop = true;
+
+		this.demonicBackgroundMusic = this.game.add.audio('oompa-loompa-reverse');
+		this.demonicBackgroundMusic.loop = true;
+		
+		this.normalBackgroundMusic.play();
+
 		this.score = 0;
 		this.life = 100;
 		this.movementModifier = 1.0;
+		this.demonicMusic = false;
 
 		this.cursors = this.game.input.keyboard.createCursorKeys();
 
@@ -235,6 +244,12 @@ Main.prototype = {
 	    	lollipop.y = lollipop.originalY + 35;
 	    });
 
+	    if (this.life <= 50 && this.demonicMusic === false) {
+	    	this.demonicMusic = true;
+	    	this.normalBackgroundMusic.stop();
+	    	this.demonicBackgroundMusic.play();
+	    }
+
 	    this.game.physics.arcade.overlap(this.player, this.candy, this.collect, null, this);
 	    this.game.physics.arcade.overlap(this.player, this.icecream, this.slow, null, this);
 	    this.game.physics.arcade.overlap(this.player, this.lollipops, this.suckIn, null, this);
@@ -247,10 +262,16 @@ Main.prototype = {
 	},
 
 	completeLevel: function() {
+		//this.normalBackgroundMusic.loop = false;
+		this.normalBackgroundMusic.stop();
+		this.demonicBackgroundMusic.stop();
 		this.game.state.start('Win');
 	},
 
 	gameOver: function() {
+		//this.normalBackgroundMusic.loop = false;
+		this.normalBackgroundMusic.stop();
+		this.demonicBackgroundMusic.stop();
 		this.game.state.start('GameOver');
 	},
 

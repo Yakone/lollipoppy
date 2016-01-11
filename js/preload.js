@@ -20,6 +20,9 @@ Preload.prototype = {
 		this.game.load.image('lollipopGreen', 'assets/art-candy/Tiles/lollipopGreen.png');
 		this.game.load.image('lollipopBasePink', 'assets/art-candy/Tiles/lollipopBasePink.png');
 		this.game.load.image('gummyWormRedDoor', 'assets/art-candy/Tiles/gummyWormRedDoor.png');
+
+		this.game.load.audio('oompa-loompa', ['assets/Oompa Loompa.mp3', 'assets/Oompa Loompa.ogg']);
+		this.game.load.audio('oompa-loompa-reverse', ['assets/Oompa Loompa Reverse.mp3', 'assets/Oompa Loompa Reverse.ogg']);
 	},
 
 	create: function() {
