@@ -49,7 +49,7 @@ Main.prototype = {
 
 		this.demonicBackgroundMusic = this.game.add.audio('oompa-loompa-reverse');
 		this.demonicBackgroundMusic.loop = true;
-		
+
 		this.normalBackgroundMusic.play();
 
 		this.score = 0;
@@ -219,7 +219,7 @@ Main.prototype = {
 	update: function() {
 		this.game.physics.arcade.collide(this.player, this.blockedLayer);
 	    this.player.body.velocity.x = 0;
- 		
+
  		// Only jump if the player is on the ground
 	    if (this.cursors.up.isDown && this.player.body.blocked.down) {
 	  		this.player.body.velocity.y = -900 * this.movementModifier;
@@ -237,7 +237,7 @@ Main.prototype = {
 	    else if (this.cursors.right.isDown) {
 			this.player.body.velocity.x += 500 * this.movementModifier;
 	    }
-	    
+
 	    this.lollipops.forEach(function(lollipop) {
 	    	lollipop.angle += 2;
 	    	lollipop.x = lollipop.originalX + 35;
@@ -285,7 +285,7 @@ Main.prototype = {
 		    // Phaser uses top left, Tiled bottom left so we have to adjust the y position
 		    	element.y -= map.tileHeight;
 		    	result.push(element);
-		  	}      
+		  	}
 		});
 		return result;
 	},
@@ -305,7 +305,7 @@ Main.prototype = {
 	},
 
 	render: function() {
-    	this.game.debug.cameraInfo(this.game.camera, 32, 32);
-    	this.game.debug.spriteCoords(this.player, 32, 500);
+    	//this.game.debug.cameraInfo(this.game.camera, 32, 32);
+    	//this.game.debug.spriteCoords(this.player, 32, 500);
 	},
 };
